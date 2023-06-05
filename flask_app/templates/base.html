@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/my_style.css') }}">
+</head>
+<body>
+    <nav class="d-flex justify-content-between">
+        <h1>Welcome {{loggedUser.first_name}} {{loggedUser.last_name}}</h1>
+        <a href="/add/post" class="btn btn-primary">Add post</a>
+        {% if loggedUser.admin == 1 %}
+        <a class="btn btn-warning" href="/all/users/admin">See all users</a>
+        {% endif %}
+        <a class="btn btn-danger" href="/logout">Logout</a>
+    </nav>
+
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>
+
+    <script>
+        async function like(e){
+        e.preventDefault();
+        var target = e.target;
+        var postId = target.dataset.postId;
+        
+        try {
+            const response = await fetch("http://127.0.0.1:5000/like/"+postId, { method: 'GET' });
+            const data = await response.json();
+            
+            // Update the DOM with the new number of likes
+            var likesCountElement = document.getElementById('likes-count-' + postId);
+            if (likesCountElement) {
+                console.log(data);
+                likesCountElement.textContent = 'Number of likes: ' + data.likesCount;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    </script>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+    <form  enctype="multipart/form-data" class="w-50 m-auto p-5 border rounded  bg-light  mt-3" action="/create/post" method="post">
+        <h2 class="text-center">Add Post</h2>
+        <div class="form-row">
+            <label  for="image">Post Image:</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+        {% with messages = get_flashed_messages(category_filter=["postImage"]) %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="text-danger text-center">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="form-row">
+            <label  for="title">Post Title:</label>
+            <input type="text" class="form-control" name="title" placeholder="Enter post Title">
+        </div>
+        {% with messages = get_flashed_messages(category_filter=["titlePost"]) %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="text-danger text-center">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="form-row">
+            <label  for="content">Post Content:</label>
+            <textarea class="form-control" name="content" cols="30" rows="10"></textarea>
+        </div>
+        {% with messages = get_flashed_messages(category_filter=["contentPost"]) %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="text-danger text-center">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <button class="mt-2 btn btn-success">Create Post</button>
+    </form>
+{% endblock %}

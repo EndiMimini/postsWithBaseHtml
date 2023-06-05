@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="p-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img class="myPostImage mt-3" src="../static/UPLOADED_FOLDER/{{post.image}}" alt="image"> 
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center mb-2">Title: {{post.title}}</h>
+
+                <p>Content: {{post.content}}</p>
+            <p>Nr of likes: {{likesNr|length}}</p>
+            {% for user in likesNr %}
+            <p>{{user}}</p>
+            {% endfor %}
+            </div>
+        </div>
+        
+
+    </div>
+{% endblock %}

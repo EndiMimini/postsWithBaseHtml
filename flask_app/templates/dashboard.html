@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-lg-12 p-5">
+        <h2 class="text-center">All posts created</h2>
+        {% for post in posts %}
+        <div class="border p-5 w-50 m-auto text-center">
+
+
+            <img class="myPostImage" src="../static/UPLOADED_FOLDER/{{post.image}}" alt="image"> 
+            <a href="/post/{{post.id}}">Title: {{post.title}}</a>
+            <p>Content: {{post.content}}</p>
+            <p>Creator: {{post.first_name}} {{post.last_name}}</p>
+            <h5 id="likes-count-{{post.id}}">Number of likes: {{post.num_likes}}</h5>
+            {% if loggedUser.id == post.user_id %}
+                <a class="btn btn-warning" href="/edit/post/{{post.id}}">Edit Post</a>
+                <a class="btn btn-danger" href="/delete/post/{{post.id}}">Delete Post</a>
+            {% endif %}
+            {% if post.id in likedPost  %}
+            <a class="btn btn-info" href="/unlike/{{post.id}}"">Unlike</a>
+            {% else %}
+            <a class="btn btn-info" data-post-id="{{post.id}}"  onclick="like(event)" >Like</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endblock %}

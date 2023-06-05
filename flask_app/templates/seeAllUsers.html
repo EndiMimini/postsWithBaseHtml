@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-lg-12 p-5">
+        <h2 class="text-center">Manage all users</h2>
+        <div class="row m-auto p-2">
+            <div class="col-lg-12">
+              <input type="text" class="form-control w-100" id="searchInput" oninput="searchTable()" placeholder="Search user">
+            </div>
+          </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for user in allUsers %}
+                {% if user.email != loggedUser.email %}
+                <tr>
+                    <th scope="row">{{user.first_name}}</th>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td><a class="btn btn-danger" href="/delete/user/admin/{{user.id}}">Delete User</a></td>
+                  </tr> 
+                  {% endif %}
+              {% endfor %}
+            
+            </tbody>
+          </table>
+    </div>
+
+
+<script>
+	function searchTable() {
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("searchInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("tableBody");
+	  tr = table.getElementsByTagName("tr");
+  
+	  for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td");
+		for (j = 0; j < td.length; j++) {
+		  txtValue = td[j].textContent || td[j].innerText;
+		  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			tr[i].style.display = "";
+			break;
+		  } else {
+			tr[i].style.display = "none";
+		  }
+		}
+	  }
+	}
+  </script>
+{% endblock %}

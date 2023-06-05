@@ -1,0 +1,8 @@
+.myPostImage{
+    width: 40%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+}
